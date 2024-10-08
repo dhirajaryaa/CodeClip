@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "./components/theme-provider";
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./layout/app-layout";
-import { LandingPage, signInPage, signUpPage } from "./pages";
+import { LandingPage, SignInPage, SignUpPage } from "./pages";
 import { RouterProvider } from "react-router-dom";
 
 function App() {
@@ -16,11 +16,11 @@ function App() {
         },
         {
           path: "/signin",
-          element: <signInPage />,
+          element: <SignInPage />,
         },
         {
           path: "/signup",
-          element: <signUpPage />,
+          element: <SignUpPage />,
         },
       ],
     },

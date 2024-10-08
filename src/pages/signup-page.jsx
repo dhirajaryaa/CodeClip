@@ -10,11 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 
-export function signUpPage() {
+export function SignUpPage() {
   return (
-    <Card className="mx-auto max-w-sm">
+    <section className="w-full h-screen flex items-center justify-center">
+
+    <Card className="mx-auto max-w-sm w-full">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardTitle className="text-2xl">Signup</CardTitle>
         <CardDescription>
           Enter your email below to Create a new account
         </CardDescription>
@@ -53,5 +55,6 @@ export function signUpPage() {
         </div>
       </CardContent>
     </Card>
+    </section>
   );
 }
