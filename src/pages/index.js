@@ -1,6 +1,7 @@
-import LandingPage from "./LandingPage";
+import {LandingPage} from "./LandingPage";
 import { SignInPage } from "./signin-page";
 import { SignUpPage } from "./signup-page";
+import { Dashboard } from "./Dashboard";
 
 
-export {LandingPage,SignInPage,SignUpPage}
+export {LandingPage,SignInPage,SignUpPage,Dashboard}
