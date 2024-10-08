@@ -19,7 +19,6 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import HeroImg from "../assets/hero.jpeg";
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -43,6 +42,8 @@ export function LandingPage() {
         "The code highlighting and editor features in CodeClip are top-notch. It's become an essential part of my development toolkit.",
     },
   ];
+
+  
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -273,12 +274,14 @@ export function LandingPage() {
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
+                <Link to={"/signup"} >
                 <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                   Sign Up for Free
                 </Button>
-                {/* <p className="text-xs text-muted-foreground">
+                </Link>
+                <p className="text-xs text-muted-foreground">
                   No credit card required. Start organizing your code today!
-                </p> */}
+                </p>
               </div>
             </div>
           </div>
