@@ -19,6 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import HeroImg from "../assets/hero.jpeg";
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -61,20 +62,22 @@ export function LandingPage() {
           <span className="ml-2 text-lg font-bold">CodeClip</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-         <Link to={"/signin"}>
-          <Button size="sm">Sign In</Button>
-         </Link>
+          <Link to={"/signin"}>
+            <Button size="sm">Sign In</Button>
+          </Link>
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <section
+          className={`  w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[url('/hero.jpeg')] bg-center bg-cover backdrop-blur-lg`}
+        >
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Your Code, Clipped and Accessible
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl sm">
                   Store, manage, and share your code snippets with ease.
                   CodeClip is the ultimate tool for developers who value
                   efficiency and collaboration.
@@ -84,11 +87,12 @@ export function LandingPage() {
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Get Started
                 </Button>
-                <Button variant="outline">Learn More</Button>
+                <Button variant="destructive">Learn More</Button>
               </div>
             </div>
           </div>
         </section>
+
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
