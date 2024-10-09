@@ -24,11 +24,15 @@ function UserProfile() {
           <DropdownMenuTrigger asChild>
             <Avatar className="w-12 duration-100 h-12 rounded-full border-[3px] border-primary p-1 hover:border-destructive-foreground">
               <AvatarImage
-                src="https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_24.png"
-                alt="Avatar"
+                src={`${
+                  user?.photoUrl != ""
+                    ? user?.photoUrl
+                    : "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_24.png"
+                }`}
+                alt={user?.name != "" ? user?.name : "Avatar"}
               />
               <AvatarFallback>
-                {"Avatar"
+                {user?.name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
@@ -46,7 +50,11 @@ function UserProfile() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Button
+<<<<<<< HEAD
                   onClick={()=>dispatch(signOut())}
+=======
+                  onClick={() => dispatch(signOut())}
+>>>>>>> 3466dee (feat: user logout func working)
                   className="w-full"
                   size="xs"
                   variant="ghost"
