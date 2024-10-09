@@ -32,6 +32,19 @@ export const signInWithEmailAndPassword = createAsyncThunk(
     }
   }
 );
+export const signUpWithEmailAndPassword = createAsyncThunk(
+  "auth/signup",
+  async ({ email, password,name }, { rejectWithValue }) => {
+    try {
+      const user = await authServices.emailPasswordSignUp(email, password,name);
+      return transformData(user);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 export const signOut = createAsyncThunk(
   "auth/signOut",
   async (_, { rejectWithValue }) => {
@@ -75,6 +88,31 @@ const AuthSlice = createSlice({
     });
 
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+
+    builder.addCase(signUpWithEmailAndPassword.pending, (state) => {
+      state.isLoading = true;
+      state.isError = null;
+    });
+
+    builder.addCase(signUpWithEmailAndPassword.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = null;
+      state.isAuth = true;
+      state.user = action.payload;
+      toast("🎉 Welcome back!", {
+        description: "You have successfully signup in.",
+        action: {
+          label: "Go to Dashboard",
+          onClick: () => console.log("Navigating to dashboard"),
+        },
+      });
+      
+    });
+
+    builder.addCase(signUpWithEmailAndPassword.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });

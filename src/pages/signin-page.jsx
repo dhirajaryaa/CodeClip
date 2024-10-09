@@ -26,10 +26,6 @@ export function SignInPage() {
 
     dispatch(signInWithEmailAndPassword({email,password}));
 
-    console.log("Email:", email);
-    console.log("Password:", password);
-
-
     formRef.current.reset();
   };
 

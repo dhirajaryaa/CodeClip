@@ -34,7 +34,7 @@ class AuthServices {
     }
   };
 
-  emailPasswordSignUp = async (email, password, userName) => {
+  emailPasswordSignUp = async (email, password, name) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -44,7 +44,7 @@ class AuthServices {
       const userData = userCredential.user;
 
       await updateProfile(userData, {
-        displayName: userName,
+        displayName: name,
       });
       return userData;
     } catch (error) {
