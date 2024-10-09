@@ -1,6 +1,7 @@
 import authServices from "@/services/authServices";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "sonner";
 
 const initialState = {
   user: null,
@@ -62,9 +63,15 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.isError = null;
       state.isAuth = true;
-      console.log(action.payload);
-
       state.user = action.payload;
+      toast("🎉 Welcome back!", {
+        description: "You have successfully signed in.",
+        action: {
+          label: "Go to Dashboard",
+          onClick: () => console.log("Navigating to dashboard"),
+        },
+      });
+      
     });
 
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
@@ -77,6 +84,14 @@ const AuthSlice = createSlice({
       state.user = null;
       state.isAuth = false;
       state.isError = null;
+      toast("👋 See you later!", {
+        description: "You have successfully signed out.",
+        action: {
+          label: "",
+          onClick: () => console.log("User has signed back in"),
+        },
+      });
+      
     });
     builder.addCase(signOut.rejected, (state, action) => {
       state.isLoading = false;

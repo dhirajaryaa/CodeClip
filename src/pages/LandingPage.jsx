@@ -20,6 +20,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Header } from "@/components/custom";
+import { toast } from "sonner";
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -72,7 +73,7 @@ export function LandingPage() {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Your Code, Clipped and Accessible
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl sm">
+                <p className="mx-auto max-w-[700px] sm bg-yellow-500/80 text-white rounded-lg">
                   Store, manage, and share your code snippets with ease.
                   CodeClip is the ultimate tool for developers who value
                   efficiency and collaboration.
@@ -82,6 +83,8 @@ export function LandingPage() {
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Get Started
                 </Button>
+
+
                 <Button variant="destructive">Learn More</Button>
               </div>
             </div>
