@@ -50,11 +50,7 @@ function UserProfile() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Button
-<<<<<<< HEAD
                   onClick={()=>dispatch(signOut())}
-=======
-                  onClick={() => dispatch(signOut())}
->>>>>>> 3466dee (feat: user logout func working)
                   className="w-full"
                   size="xs"
                   variant="ghost"

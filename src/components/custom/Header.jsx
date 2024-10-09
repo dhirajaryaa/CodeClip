@@ -5,7 +5,7 @@ import { UserProfile } from ".";
 
 function Header() {
   return (
-    <header className="px-4 lg:px-6 h-14 flex items-center">
+    <header className="px-4 lg:px-6 h-14 flex items-center fixed top-0 left-0 w-full z-10 backdrop-blur-sm bg-secondary/50 shadow-xl">
       <Link to="#" className="flex items-center justify-center">
         <Code className="h-6 w-6 text-primary" />
         <span className="ml-2 text-lg font-bold">CodeClip</span>
