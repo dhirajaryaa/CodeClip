@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import authServices from "./services/authServices";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./redux/slices/authSlice";
+import { setUser, signOut } from "./redux/slices/authSlice";
 
 function App() {
   const [user,setUserState] = useState(null);
@@ -44,7 +44,7 @@ function App() {
         dispatch(setUser(user)); // Dispatch action to set user in Redux store
       } else {
         setUser(null); // Clear local user state
-        dispatch(clearUser()); // Dispatch action to clear user in Redux store
+        dispatch(signOut()); // Dispatch action to clear user in Redux store
       }
     };
 

@@ -53,15 +53,19 @@ class AuthServices {
     }
   };
 
-  authObserver = () => {
-    onAuthStateChanged(auth, (user) => {
+  authObserver = (callback) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user.uid, user.displayName);
+        console.log("User logged in:", user.uid, user.displayName);
+        callback(user);
       } else {
-        console.log("user not login!");
+        console.log("User not logged in!");
+        callback(null);
       }
     });
+    return unsubscribe; // Return the unsubscribe function
   };
+  
 
   emailPasswordSignOut = async () => {
     try {

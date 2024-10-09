@@ -9,18 +9,23 @@ const initialState = {
   isError: null,
 };
 
+export const transformData = (user) => {
+  if (!user) return null; // Handle case where user is null or undefined
+
+  return {
+    uid: user.uid,
+    name: user.displayName || "",
+    email: user.email || "",
+    photoUrl: user.photoURL || "",
+  };
+};
+
 export const signInWithEmailAndPassword = createAsyncThunk(
   "auth/signin",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const data = await authServices.emailPasswordSignIn(email, password);
-      const userData ={
-        uid:data.uid,
-        email:data.email,
-        name:data.displayName,
-        photoUrl:data.photoURL
-      } 
-      return data;
+      const user = await authServices.emailPasswordSignIn(email, password);
+      return transformData(user);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -33,7 +38,7 @@ const AuthSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.isAuth = true;
-      state.user = action.payload;
+      state.user = transformData(action.payload);
     },
     signOut: (state) => {
       state.isAuth = false;
@@ -51,7 +56,7 @@ const AuthSlice = createSlice({
       state.isError = null;
       state.isAuth = true;
       console.log(action.payload);
-      
+
       state.user = action.payload;
     });
 
