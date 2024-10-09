@@ -54,7 +54,6 @@ class AuthServices {
 
   updateUserProfile = async (user,name) => {
     try {
-      console.log("this");
       
      const userData =  await updateProfile(auth.currentUser, {
         displayName: name,
@@ -66,10 +65,11 @@ class AuthServices {
     }
   };
 
-  removeUser = async (name) => {
+  removeUser = async () => {
     try {
       
       await deleteUser(auth.currentUser);
+      return "successful!";
     } catch (error) {
       console.error("Error remove user:", error);
       throw error; // Handle the error appropriately
