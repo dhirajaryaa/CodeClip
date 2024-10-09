@@ -31,6 +31,17 @@ export const signInWithEmailAndPassword = createAsyncThunk(
     }
   }
 );
+export const signOut = createAsyncThunk(
+  "auth/signOut",
+  async (_, { rejectWithValue }) => {
+    try {
+     await authServices.userSignOut();
+     
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const AuthSlice = createSlice({
   name: "auth",
@@ -39,10 +50,6 @@ const AuthSlice = createSlice({
     setUser: (state, action) => {
       state.isAuth = true;
       state.user = action.payload;
-    },
-    signOut: (state) => {
-      state.isAuth = false;
-      state.user = null;
     },
   },
   extraReducers: (builder) => {
@@ -64,8 +71,19 @@ const AuthSlice = createSlice({
       state.isLoading = false;
       state.isError = action.payload;
     });
+
+    builder.addCase(signOut.fulfilled, (state) => {
+      state.isLoading = false;
+      state.user = null;
+      state.isAuth = false;
+      state.isError = null;
+    });
+    builder.addCase(signOut.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
   },
 });
 
-export const { setUser, signOut } = AuthSlice.actions;
+export const { setUser } = AuthSlice.actions;
 export default AuthSlice.reducer;

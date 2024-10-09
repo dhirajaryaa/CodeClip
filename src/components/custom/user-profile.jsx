@@ -1,8 +1,7 @@
-import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,12 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, User } from "lucide-react";
 import { signOut } from "@/redux/slices/authSlice";
 
 function UserProfile() {
   const { user, isAuth } = useSelector((state) => state.auth);
-  console.log(user);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -47,7 +46,7 @@ function UserProfile() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Button
-                  onclick={signOut}
+                  onClick={()=>dispatch(signOut())}
                   className="w-full"
                   size="xs"
                   variant="ghost"

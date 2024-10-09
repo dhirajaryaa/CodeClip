@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import authServices from "./services/authServices";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser, signOut, transformData } from "./redux/slices/authSlice";
+import { setUser, transformData } from "./redux/slices/authSlice";
 
 function App() {
   const [user, setUserState] = useState(null);
@@ -40,14 +40,11 @@ function App() {
   useEffect(() => {
     const handleUserAuth = (user) => {
       if (user) {
-        console.log("chekcing");
-
-        setUserState(transformData(user)); // Update local state
+        // setUserState(transformData(user)); // Update local state
 
         dispatch(setUser(transformData(user))); // Dispatch action to set user in Redux store
       } else {
         setUser(null); // Clear local user state
-        dispatch(signOut()); // Dispatch action to clear user in Redux store
       }
     };
 

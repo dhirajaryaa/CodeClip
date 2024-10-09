@@ -67,7 +67,7 @@ class AuthServices {
   };
   
 
-  emailPasswordSignOut = async () => {
+  userSignOut = async () => {
     try {
       await signOut(auth);
       return "successful!";
