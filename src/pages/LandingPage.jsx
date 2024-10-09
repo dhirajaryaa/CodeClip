@@ -19,6 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { Header } from "@/components/custom";
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -57,17 +58,10 @@ export function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground w-full">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link to="#" className="flex items-center justify-center">
-          <Code className="h-6 w-6 text-primary" />
-          <span className="ml-2 text-lg font-bold">CodeClip</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link to={"/signin"}>
-            <Button size="sm">Sign In</Button>
-          </Link>
-        </nav>
-      </header>
+      
+      {/* hearder add  */}
+      <Header />
+      
       <main className="flex-1">
         <section
           className={`  w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[url('/hero.jpeg')] bg-center bg-cover backdrop-blur-lg`}
