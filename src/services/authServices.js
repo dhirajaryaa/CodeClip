@@ -6,6 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
+  deleteUser,
 } from "firebase/auth";
 
 class AuthServices {
@@ -41,14 +42,36 @@ class AuthServices {
         email,
         password
       );
-      const userData = userCredential.user;
+      const data = userCredential.user;
 
-      await updateProfile(userData, {
+      const userData = this.updateUserProfile(data,name)
+      return userData;
+    } catch (error) {
+      console.error("Error sign up:", error);
+      throw error; // Handle the error appropriately
+    }
+  };
+
+  updateUserProfile = async (user,name) => {
+    try {
+      
+      await updateProfile(user, {
         displayName: name,
       });
       return userData;
     } catch (error) {
-      console.error("Error sign up:", error);
+      console.error("Error update profile:", error);
+      throw error; // Handle the error appropriately
+    }
+  };
+
+  removeUser = async (name) => {
+    try {
+      
+      await deleteUser(auth.currentUser);
+      return userData;
+    } catch (error) {
+      console.error("Error remove user:", error);
       throw error; // Handle the error appropriately
     }
   };
