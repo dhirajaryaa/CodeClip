@@ -8,17 +8,28 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "../assets/google.svg";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { googleSignin, signUpWithEmailAndPassword } from "@/redux/slices/authSlice";
+import {
+  googleSignin,
+  signUpWithEmailAndPassword,
+} from "@/redux/slices/authSlice";
 import { Loader } from "lucide-react";
 
 export function SignUpPage() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { user, isLoading, isAuth } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuth) {
+      // Redirect to dashboard or any other page after successful login
+      navigate("/dashboard");
+    }
+  }, [isAuth, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +89,7 @@ export function SignUpPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={()=>dispatch(googleSignin())}
+                onClick={() => dispatch(googleSignin())}
                 className="w-full flex gap-2 items-center hover:bg-blue-600"
                 disabled={isLoading}
               >

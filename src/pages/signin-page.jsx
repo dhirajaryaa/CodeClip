@@ -8,17 +8,28 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
 import googleIcon from "../assets/google.svg";
-import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { googleSignin, signInWithEmailAndPassword } from "@/redux/slices/authSlice";
+import {
+  googleSignin,
+  signInWithEmailAndPassword,
+} from "@/redux/slices/authSlice";
 import { Loader } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 export function SignInPage() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { user, isLoading, isAuth } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuth) {
+      // Redirect to dashboard or any other page after successful login
+      navigate("/dashboard");
+    }
+  }, [isAuth, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,36 +77,33 @@ export function SignInPage() {
                 </div>
                 <Input name="password" id="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full"
-              disabled={isLoading}
-              >{
-                isLoading ? (
-                  <Loader size={28} className="animate-spin"/>
-                ):"signin"
-              }
-              
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? (
+                  <Loader size={28} className="animate-spin" />
+                ) : (
+                  "signin"
+                )}
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                onClick={()=>dispatch(googleSignin())}
-
+                onClick={() => dispatch(googleSignin())}
                 className="w-full flex gap-2 items-center hover:bg-blue-600"
                 disabled={isLoading}
-              >{
-                isLoading ? (
-                  <Loader size={28} className="animate-spin"/>
-                ):
-                (<>
-                  <img
-                  src={googleIcon}
-                  alt="Google"
-                  width={20}
-                  className="shadow"
-                />
-                signin with Google
-                </>)
-              }
+              >
+                {isLoading ? (
+                  <Loader size={28} className="animate-spin" />
+                ) : (
+                  <>
+                    <img
+                      src={googleIcon}
+                      alt="Google"
+                      width={20}
+                      className="shadow"
+                    />
+                    signin with Google
+                  </>
+                )}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
