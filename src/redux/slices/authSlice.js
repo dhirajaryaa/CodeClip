@@ -34,9 +34,13 @@ export const signInWithEmailAndPassword = createAsyncThunk(
 );
 export const signUpWithEmailAndPassword = createAsyncThunk(
   "auth/signup",
-  async ({ email, password,name }, { rejectWithValue }) => {
+  async ({ email, password, name }, { rejectWithValue }) => {
     try {
-      const user = await authServices.emailPasswordSignUp(email, password,name);
+      const user = await authServices.emailPasswordSignUp(
+        email,
+        password,
+        name
+      );
       return transformData(user);
     } catch (error) {
       return rejectWithValue(error.message);
@@ -54,13 +58,34 @@ export const googleSignin = createAsyncThunk(
     }
   }
 );
+export const userProfileUpdate = createAsyncThunk(
+  "auth/userProfileUpdate",
+  async ({ name }, { rejectWithValue }) => {
+    try {
+      const user = await authServices.updateUserProfile(name);
+      return transformData(user);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const signOut = createAsyncThunk(
   "auth/signOut",
   async (_, { rejectWithValue }) => {
     try {
-     await authServices.userSignOut();
-     
+      await authServices.userSignOut();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  "auth/deleteUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      await authServices.removeUser();
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -94,7 +119,6 @@ const AuthSlice = createSlice({
           onClick: () => console.log("Navigating to dashboard"),
         },
       });
-      
     });
 
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
@@ -118,7 +142,6 @@ const AuthSlice = createSlice({
           onClick: () => console.log("Navigating to dashboard"),
         },
       });
-      
     });
 
     builder.addCase(googleSignin.rejected, (state, action) => {
@@ -143,10 +166,28 @@ const AuthSlice = createSlice({
           onClick: () => console.log("Navigating to dashboard"),
         },
       });
-      
     });
 
     builder.addCase(signUpWithEmailAndPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+
+    builder.addCase(userProfileUpdate.pending, (state) => {
+      state.isLoading = true;
+      state.isError = null;
+    });
+
+    builder.addCase(userProfileUpdate.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = null;
+      state.user = action.payload;
+      toast("🎉 Profile Updated!", {
+        description: "You have successfully Profile updated!.",
+      });
+    });
+
+    builder.addCase(userProfileUpdate.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });
@@ -163,7 +204,6 @@ const AuthSlice = createSlice({
           onClick: () => console.log("User has signed back in"),
         },
       });
-      
     });
     builder.addCase(signOut.rejected, (state, action) => {
       state.isLoading = false;

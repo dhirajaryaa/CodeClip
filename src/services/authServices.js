@@ -44,7 +44,7 @@ class AuthServices {
       );
       const data = userCredential.user;
 
-      const userData = this.updateUserProfile(data,name)
+      const userData = this.updateUserProfile(name)
       return userData;
     } catch (error) {
       console.error("Error sign up:", error);
@@ -54,8 +54,9 @@ class AuthServices {
 
   updateUserProfile = async (user,name) => {
     try {
+      console.log("this");
       
-      await updateProfile(user, {
+     const userData =  await updateProfile(auth.currentUser, {
         displayName: name,
       });
       return userData;
@@ -69,7 +70,6 @@ class AuthServices {
     try {
       
       await deleteUser(auth.currentUser);
-      return userData;
     } catch (error) {
       console.error("Error remove user:", error);
       throw error; // Handle the error appropriately

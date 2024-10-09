@@ -15,10 +15,20 @@ import {
   openProfileSettings,
 } from "@/redux/slices/uiSlice";
 import { useDispatch } from "react-redux";
+import { useRef } from "react";
+import { userProfileUpdate } from "@/redux/slices/authSlice";
 
 const ProfileSettings = () => {
   const { isProfileSettingsOpen } = useSelector((state) => state.ui);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const name = useRef(user?.name);
+
+  const updateProfile = (e) => {
+    e.preventDefault();
+    dispatch(userProfileUpdate(name));
+  };
+
   return (
     <Dialog
       open={isProfileSettingsOpen}
@@ -30,35 +40,31 @@ const ProfileSettings = () => {
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Profile Setting</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Personalize your profile, adjust preferences, and take control of
+            your experience.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
+
+        <div className="grid gap-4 py-2">
+          <div className="space-y-1">
+            <Label htmlFor="name">Name</Label>
             <Input
+              ref={name}
               id="name"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
+              name="name"
+              placeholder="sohit roy"
+              defaultValue={user?.name}
             />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
-            />
-          </div>
+          {/* <div className="space-y-1">
+              <Label htmlFor="password">New Password</Label>
+              <Input id="password" name="password" placeholder="New Password" />
+            </div> */}
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="button" onClick={updateProfile}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
