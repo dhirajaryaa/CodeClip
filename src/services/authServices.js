@@ -6,6 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
+  deleteUser,
 } from "firebase/auth";
 
 class AuthServices {
@@ -34,18 +35,16 @@ class AuthServices {
     }
   };
 
-  emailPasswordSignUp = async (email, password, userName) => {
+  emailPasswordSignUp = async (email, password, name) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const userData = userCredential.user;
+      const data = userCredential.user;
 
-      await updateProfile(userData, {
-        displayName: userName,
-      });
+      const userData = this.updateUserProfile(name)
       return userData;
     } catch (error) {
       console.error("Error sign up:", error);
@@ -53,17 +52,45 @@ class AuthServices {
     }
   };
 
-  authObserver = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user.uid, user.displayName);
-      } else {
-        console.log("user not login!");
-      }
-    });
+  updateUserProfile = async (user,name) => {
+    try {
+      
+     const userData =  await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      return userData;
+    } catch (error) {
+      console.error("Error update profile:", error);
+      throw error; // Handle the error appropriately
+    }
   };
 
-  emailPasswordSignOut = async () => {
+  removeUser = async () => {
+    try {
+      
+      await deleteUser(auth.currentUser);
+      return "successful!";
+    } catch (error) {
+      console.error("Error remove user:", error);
+      throw error; // Handle the error appropriately
+    }
+  };
+
+  authObserver = (callback) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // console.log("User logged in:", user.uid, user.displayName);
+        callback(user);
+      } else {
+        console.log("User not logged in!");
+        callback(null);
+      }
+    });
+    return unsubscribe; // Return the unsubscribe function
+  };
+  
+
+  userSignOut = async () => {
     try {
       await signOut(auth);
       return "successful!";
