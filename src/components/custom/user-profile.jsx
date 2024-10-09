@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOutIcon, User } from "lucide-react";
 import { signOut } from "@/redux/slices/authSlice";
+import { openProfileSettings } from "@/redux/slices/uiSlice";
 
 function UserProfile() {
   const { user, isAuth } = useSelector((state) => state.auth);
@@ -43,7 +44,12 @@ function UserProfile() {
           <DropdownMenuContent>
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Button className="w-full" size="xs" variant="ghost">
+                <Button
+                  onClick={() => dispatch(openProfileSettings())}
+                  className="w-full"
+                  size="xs"
+                  variant="ghost"
+                >
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </Button>
@@ -51,7 +57,7 @@ function UserProfile() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Button
-                  onClick={()=>dispatch(signOut())}
+                  onClick={() => dispatch(signOut())}
                   className="w-full"
                   size="xs"
                   variant="ghost"
