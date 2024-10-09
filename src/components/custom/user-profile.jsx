@@ -30,6 +30,7 @@ function UserProfile() {
                     : "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_24.png"
                 }`}
                 alt={user?.name != "" ? user?.name : "Avatar"}
+                className="w-full h-full object-cover rounded-full"
               />
               <AvatarFallback>
                 {user?.name

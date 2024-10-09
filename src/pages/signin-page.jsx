@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import googleIcon from "../assets/google.svg";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { signInWithEmailAndPassword } from "@/redux/slices/authSlice";
+import { googleSignin, signInWithEmailAndPassword } from "@/redux/slices/authSlice";
 import { Loader } from "lucide-react";
 
 export function SignInPage() {
@@ -67,7 +67,7 @@ export function SignInPage() {
                 <Input name="password" id="password" type="password" required />
               </div>
               <Button type="submit" className="w-full"
-              disable={!isLoading}
+              disabled={isLoading}
               >{
                 isLoading ? (
                   <Loader size={28} className="animate-spin"/>
@@ -78,8 +78,10 @@ export function SignInPage() {
               <Button
                 type="button"
                 variant="outline"
+                onClick={()=>dispatch(googleSignin())}
+
                 className="w-full flex gap-2 items-center hover:bg-blue-600"
-                disable={!isLoading}
+                disabled={isLoading}
               >{
                 isLoading ? (
                   <Loader size={28} className="animate-spin"/>

@@ -43,7 +43,17 @@ export const signUpWithEmailAndPassword = createAsyncThunk(
     }
   }
 );
-
+export const googleSignin = createAsyncThunk(
+  "auth/googleSignin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const user = await authServices.googleSignIn();
+      return transformData(user);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const signOut = createAsyncThunk(
   "auth/signOut",
@@ -88,6 +98,30 @@ const AuthSlice = createSlice({
     });
 
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = action.payload;
+    });
+    builder.addCase(googleSignin.pending, (state) => {
+      state.isLoading = true;
+      state.isError = null;
+    });
+
+    builder.addCase(googleSignin.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isError = null;
+      state.isAuth = true;
+      state.user = action.payload;
+      toast("🎉 Welcome back!", {
+        description: "You have successfully signed in.",
+        action: {
+          label: "Go to Dashboard",
+          onClick: () => console.log("Navigating to dashboard"),
+        },
+      });
+      
+    });
+
+    builder.addCase(googleSignin.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.payload;
     });
