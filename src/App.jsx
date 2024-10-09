@@ -43,7 +43,6 @@ function App() {
         console.log("chekcing");
 
         setUserState(transformData(user)); // Update local state
-        console.log(user);
 
         dispatch(setUser(transformData(user))); // Dispatch action to set user in Redux store
       } else {
