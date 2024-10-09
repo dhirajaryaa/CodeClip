@@ -11,12 +11,15 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import googleIcon from "../assets/google.svg";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInWithEmailAndPassword } from "@/redux/slices/authSlice";
+import { Loader } from "lucide-react";
 
 export function SignInPage() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const { user, isLoading } = useSelector((state) => state.auth);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Access form inputs using formRef
@@ -24,7 +27,7 @@ export function SignInPage() {
     const email = form["email"].value;
     const password = form["password"].value;
 
-    dispatch(signInWithEmailAndPassword({email,password}));
+    dispatch(signInWithEmailAndPassword({ email, password }));
 
     formRef.current.reset();
   };
@@ -63,20 +66,34 @@ export function SignInPage() {
                 </div>
                 <Input name="password" id="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full">
-                signin
+              <Button type="submit" className="w-full"
+              disable={!isLoading}
+              >{
+                isLoading ? (
+                  <Loader size={28} className="animate-spin"/>
+                ):"signin"
+              }
+              
               </Button>
               <Button
+                type="button"
                 variant="outline"
                 className="w-full flex gap-2 items-center hover:bg-blue-600"
-              >
-                <img
+                disable={!isLoading}
+              >{
+                isLoading ? (
+                  <Loader size={28} className="animate-spin"/>
+                ):
+                (<>
+                  <img
                   src={googleIcon}
                   alt="Google"
                   width={20}
                   className="shadow"
                 />
                 signin with Google
+                </>)
+              }
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

@@ -11,12 +11,14 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import googleIcon from "../assets/google.svg";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpWithEmailAndPassword } from "@/redux/slices/authSlice";
+import { Loader } from "lucide-react";
 
 export function SignUpPage() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
+  const { user, isLoading } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,9 +28,8 @@ export function SignUpPage() {
     const name = form["name"].value;
     const password = form["password"].value;
 
-    dispatch(signUpWithEmailAndPassword({email,password,name}));
+    dispatch(signUpWithEmailAndPassword({ email, password, name }));
     formRef.current.reset();
-
   };
 
   return (
@@ -67,20 +68,32 @@ export function SignUpPage() {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" type="password" required />
               </div>
-              <Button type="submit" className="w-full">
-                Signup
+              <Button type="submit" className="w-full" disable={!isLoading}>
+                {isLoading ? (
+                  <Loader size={28} className="animate-spin" />
+                ) : (
+                  "signin"
+                )}
               </Button>
               <Button
+                type="button"
                 variant="outline"
                 className="w-full flex gap-2 items-center hover:bg-blue-600"
+                disable={!isLoading}
               >
-                <img
-                  src={googleIcon}
-                  alt="Google"
-                  width={20}
-                  className="shadow"
-                />
-                Signup with Google
+                {isLoading ? (
+                  <Loader size={28} className="animate-spin" />
+                ) : (
+                  <>
+                    <img
+                      src={googleIcon}
+                      alt="Google"
+                      width={20}
+                      className="shadow"
+                    />
+                    signin with Google
+                  </>
+                )}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
