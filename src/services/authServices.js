@@ -56,7 +56,7 @@ class AuthServices {
   authObserver = (callback) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("User logged in:", user.uid, user.displayName);
+        // console.log("User logged in:", user.uid, user.displayName);
         callback(user);
       } else {
         console.log("User not logged in!");

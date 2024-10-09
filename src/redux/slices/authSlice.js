@@ -38,7 +38,7 @@ const AuthSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.isAuth = true;
-      state.user = transformData(action.payload);
+      state.user = action.payload;
     },
     signOut: (state) => {
       state.isAuth = false;
