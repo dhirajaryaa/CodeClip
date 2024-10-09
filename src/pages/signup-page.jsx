@@ -9,6 +9,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
+import googleIcon from "../assets/google.svg"
+
 
 export function SignUpPage() {
   return (
@@ -43,7 +45,8 @@ export function SignUpPage() {
           <Button type="submit" className="w-full">
             Signup
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full flex gap-2 items-center hover:bg-blue-600">
+          <img src={googleIcon} alt="Google" width={20} className="shadow"/>
             Signup with Google
           </Button>
         </div>

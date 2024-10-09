@@ -1,14 +1,15 @@
-import { auth } from "@/firebase/firebase";
+import { auth, googleProvider } from "@/firebase/firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
   signOut,
   onAuthStateChanged,
+  signInWithPopup,
 } from "firebase/auth";
 
 class AuthServices {
-  signIn = async (email, password) => {
+  emailPasswordSignIn = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -22,8 +23,18 @@ class AuthServices {
       throw error; // Handle the error appropriately
     }
   };
+  googleSignIn = async () => {
+    try {
+      const userCredential = await signInWithPopup(auth, googleProvider);
 
-  signUp = async (email, password, userName) => {
+      return userCredential.user;
+    } catch (error) {
+      console.error("Error google sign in:", error);
+      throw error; // Handle the error appropriately
+    }
+  };
+
+  emailPasswordSignUp = async (email, password, userName) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -52,7 +63,7 @@ class AuthServices {
     });
   };
 
-  signOut = async () => {
+  emailPasswordSignOut = async () => {
     try {
       await signOut(auth);
       return "successful!";
