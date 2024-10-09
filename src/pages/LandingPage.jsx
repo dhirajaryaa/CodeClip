@@ -19,7 +19,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+<<<<<<< HEAD
 import { Header } from "@/components/custom";
+=======
+>>>>>>> origin/feat/userAuth
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -44,8 +47,11 @@ export function LandingPage() {
     },
   ];
 
+<<<<<<< HEAD
   
 
+=======
+>>>>>>> origin/feat/userAuth
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
   };
@@ -58,6 +64,7 @@ export function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground w-full">
+<<<<<<< HEAD
       
       {/* hearder add  */}
       <Header />
@@ -66,13 +73,32 @@ export function LandingPage() {
         <section
           className={`  w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-[url('/hero.jpeg')] bg-center bg-cover backdrop-blur-lg`}
         >
+=======
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <Link to="#" className="flex items-center justify-center">
+          <Code className="h-6 w-6 text-primary" />
+          <span className="ml-2 text-lg font-bold">CodeClip</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
+         <Link to={"/signin"}>
+          <Button size="sm">Sign In</Button>
+         </Link>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+>>>>>>> origin/feat/userAuth
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Your Code, Clipped and Accessible
                 </h1>
+<<<<<<< HEAD
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl sm">
+=======
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+>>>>>>> origin/feat/userAuth
                   Store, manage, and share your code snippets with ease.
                   CodeClip is the ultimate tool for developers who value
                   efficiency and collaboration.
@@ -82,12 +108,19 @@ export function LandingPage() {
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Get Started
                 </Button>
+<<<<<<< HEAD
                 <Button variant="destructive">Learn More</Button>
+=======
+                <Button variant="outline">Learn More</Button>
+>>>>>>> origin/feat/userAuth
               </div>
             </div>
           </div>
         </section>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feat/userAuth
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
@@ -268,6 +301,7 @@ export function LandingPage() {
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
+<<<<<<< HEAD
                 <Link to={"/signup"} >
                 <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                   Sign Up for Free
@@ -276,6 +310,14 @@ export function LandingPage() {
                 <p className="text-xs text-muted-foreground">
                   No credit card required. Start organizing your code today!
                 </p>
+=======
+                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                  Sign Up for Free
+                </Button>
+                {/* <p className="text-xs text-muted-foreground">
+                  No credit card required. Start organizing your code today!
+                </p> */}
+>>>>>>> origin/feat/userAuth
               </div>
             </div>
           </div>
