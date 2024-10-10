@@ -9,6 +9,7 @@ import authServices from "./services/authServices";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser, transformData } from "./redux/slices/authSlice";
+import { ProtectedRoute } from "./components/custom";
 
 function App() {
   const [user, setUserState] = useState(null);
@@ -31,7 +32,11 @@ function App() {
         },
         {
           path: "/dashboard",
-          element: <Dashboard />,
+          element: (
+            <ProtectedRoute>
+              <Dashboard />,
+            </ProtectedRoute>
+          ),
         },
       ],
     },
