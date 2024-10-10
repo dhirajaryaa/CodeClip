@@ -12,6 +12,7 @@ function NavLinks() {
       >
         <Logo />
       </div>
+      <h3 className="text-muted-foreground/50">Quick Links</h3>
       <Link
         to="#"
         className="mx-[-0.65rem] hover:bg-muted duration-100 ease-in-out flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"

@@ -5,10 +5,10 @@ import { Toaster } from "sonner";
 function AppLayout() {
   const { theme } = useTheme();
   return (
-    <main>
+    <>
       <Outlet />
       <Toaster theme={theme} />
-    </main>
+    </>
   )
 }
 

@@ -1,46 +1,4 @@
-// import { Header, ProfileSettings } from "@/components/custom";
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-
-// export const Dashboard = () => {
-//   return (
-//     <>
-//       {/* header show  */}
-//       <Header />
-//       {/* user profile edit  */}
-//       <ProfileSettings />
-//       {/* dashboard content here  */}
-//      <section className="container mx-auto py-8 px-4">
-//       <div className="flex items-center justify-between">
-//        <Button size="sm">
-//         Filters
-//        </Button>
-//        <div>
-//         <Input placeholder=""/>
-//        </div>
-//        <Button variant="destructive" size="sm">
-//         New Snippets
-//        </Button>
-//       </div>
-//      </section>
-//     </>
-//   );
-// };
-
-import {
-  Bell,
-  CircleUser,
-  Code,
-  Folder,
-  Home,
-  Plus,
-  Search,
-  Settings,
-  Star,
-  Tags,
-} from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -49,18 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
-import { Logo, NavLinks, Sidebar } from "@/components/custom";
+import { Logo, NavLinks, ProfileSettings, Sidebar } from "@/components/custom";
 
 export const Dashboard = () => {
   return (
@@ -75,13 +22,18 @@ export const Dashboard = () => {
             {/* links  */}
             <NavLinks />
           </div>
-       
         </div>
       </div>
       <div className="flex flex-col">
         {/* sidebar  */}
         <Sidebar />
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 w-full">
+
+        {/* user setting popup */}
+        <ProfileSettings />
+
+        {/* dashboard content  */}
+
+        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 w-full bg-muted">
           <div className="flex items-center">
             <h1 className="text-lg font-semibold md:text-2xl">My Snippets</h1>
             <Button size="sm" className="ml-auto">
@@ -96,7 +48,7 @@ export const Dashboard = () => {
                 <CardDescription>JavaScript, React</CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="overflow-x-auto rounded bg-muted p-4">
+                <pre className="overflow-x-auto rounded bg-muted/70 p-4">
                   <code>{`useEffect(() => {
   // Effect code here
   return () => {
@@ -113,7 +65,7 @@ export const Dashboard = () => {
                 <CardDescription>CSS</CardDescription>
               </CardHeader>
               <CardContent>
-                <pre className="overflow-x-auto rounded bg-muted p-4">
+                <pre className="overflow-x-auto rounded bg-muted/70 p-4">
                   <code>{`.container {
   display: flex;
   justify-content: center;
