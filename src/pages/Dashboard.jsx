@@ -47,7 +47,7 @@ export const Dashboard = () => {
               New Snippet
             </Button>
           </div>
-          <div className="flex-1 overflow-y-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 scrollbar-hide">
+          <div className="flex-1 overflow-y-auto grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 scrollbar-hide">
             {/* code snippet card  */}
             <SnippetCard />
             <SnippetCard />

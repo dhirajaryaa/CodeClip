@@ -11,14 +11,19 @@ function SnippetCard() {
   return (
     <Card className="bg-background">
       <CardHeader>
-        <CardTitle>React useEffect Hook</CardTitle>
+        <CardTitle className="font-bold capitalize block truncate w-full overflow-hidden">
+          React useEffect
+        </CardTitle>
         <CardDescription>JavaScript, React</CardDescription>
         <div className="flex items-center gap-1">
-          <Badge className="rounded">hello</Badge>
+          <Badge className="rounded bg-primary/20 text-primary">
+            JavaScript
+          </Badge>
+          <Badge className="rounded bg-primary/20 text-primary">React</Badge>
         </div>
       </CardHeader>
       <CardContent>
-        <pre className="overflow-x-auto rounded bg-muted/70 p-2 text-xs sm:text-sm md:text-lg">
+        <pre className="rounded bg-muted/70 p-2 text-xs sm:text-sm ">
           <code>{`useEffect(() => {
 // Effect code here
 return () => {
