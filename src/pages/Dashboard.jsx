@@ -7,11 +7,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Logo, NavLinks, ProfileSettings, Sidebar } from "@/components/custom";
+import {
+  Logo,
+  NavLinks,
+  ProfileSettings,
+  Sidebar,
+  SnippetCard,
+} from "@/components/custom";
 
 export const Dashboard = () => {
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] overflow-hidden">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -33,7 +39,7 @@ export const Dashboard = () => {
 
         {/* dashboard content  */}
 
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 w-full bg-muted">
+        <main className="flex flex-1 flex-col h-full max-h-[93vh] overflow-hidden w-full bg-muted p-4 md:p-6 gap-4 md:gap-8">
           <div className="flex items-center">
             <h1 className="text-lg font-semibold md:text-2xl">My Snippets</h1>
             <Button size="sm" className="ml-auto">
@@ -41,39 +47,16 @@ export const Dashboard = () => {
               New Snippet
             </Button>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>React useEffect Hook</CardTitle>
-                <CardDescription>JavaScript, React</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <pre className="overflow-x-auto rounded bg-muted/70 p-4">
-                  <code>{`useEffect(() => {
-  // Effect code here
-  return () => {
-    // Cleanup code here
-  };
-}, [dependencies]);`}</code>
-                </pre>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>CSS Flexbox</CardTitle>
-                <CardDescription>CSS</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <pre className="overflow-x-auto rounded bg-muted/70 p-4">
-                  <code>{`.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}`}</code>
-                </pre>
-              </CardContent>
-            </Card>
+          <div className="flex-1 overflow-y-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 scrollbar-hide">
+            {/* code snippet card  */}
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
+            <SnippetCard />
           </div>
         </main>
       </div>

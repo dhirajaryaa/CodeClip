@@ -5,6 +5,7 @@ import ProtectedRoute from "./protected-route";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import Sidebar from "./Sidebar";
+import SnippetCard from "./SnippetCard";
 
 export {
   Header,
@@ -13,5 +14,6 @@ export {
   ProtectedRoute,
   Logo,
   Sidebar,
+  SnippetCard,
   NavLinks,
 };
