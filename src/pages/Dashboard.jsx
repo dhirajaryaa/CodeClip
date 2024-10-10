@@ -8,6 +8,9 @@ export const Dashboard = () => {
       {/* user profile edit  */}
       <ProfileSettings />
       {/* dashboard content  */}
+     <section>
+      thsi is dashboard
+     </section>
     </>
   );
 };

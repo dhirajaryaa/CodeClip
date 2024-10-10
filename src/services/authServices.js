@@ -52,7 +52,7 @@ class AuthServices {
     }
   };
 
-  updateUserProfile = async (user,name) => {
+  updateUserProfile = async (name) => {
     try {
       
      const userData =  await updateProfile(auth.currentUser, {

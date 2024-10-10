@@ -34,7 +34,7 @@ function App() {
           path: "/dashboard",
           element: (
             <ProtectedRoute>
-              <Dashboard />,
+              <Dashboard />
             </ProtectedRoute>
           ),
         },
