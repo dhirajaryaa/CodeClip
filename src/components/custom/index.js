@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import Sidebar from "./Sidebar";
 import SnippetCard from "./SnippetCard";
+import SearchForm from "./Search";
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   Sidebar,
   SnippetCard,
   NavLinks,
+  SearchForm
 };
