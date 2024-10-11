@@ -18,10 +18,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CopyIcon } from "lucide-react";
 import { Copy } from "lucide-react";
+import { useState } from "react";
+
+import AceEditor from "react-ace";
+
+// import "ace-builds/src-noconflict/mode-java";
+// import "ace-builds/src-noconflict/theme-github";
+// import "ace-builds/src-noconflict/ext-language_tools";
 
 function SnippetFormPage() {
+  const [code, setCode] = useState(`
+function onLoad(editor) {
+  console.log("i've loaded");
+}
+`);
   return (
     <DashboardLayout>
       <main className="p-3 bg-muted w-full h-full">
@@ -77,8 +88,8 @@ function SnippetFormPage() {
                 <Label htmlFor="code" className="text-primary mt-2">
                   <Code2 />
                 </Label>
-                <div className="w-full min-h-[15rem] max-h-96 overflow-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background ">
-                  <div className="flex items-center justify-between py-0 sm:py-1">
+                <div className="w-full min-h-[15rem] max-h-96 overflow-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background flex flex-col ">
+                  <div className="flex items-center justify-between mb-2">
                     <Select>
                       <SelectTrigger className="w-[110px]">
                         <SelectValue placeholder="Theme" />
@@ -98,7 +109,29 @@ function SnippetFormPage() {
                       <Copy />
                     </Button>
                   </div>
-                  code here
+                  {/* code here */}
+
+                  <AceEditor
+                    width="100%"
+                    height="100%"
+                    placeholder="Placeholder Text"
+                    mode="javascript"
+                    theme="monokai"
+                    name="blah2"
+                    fontSize={"1em"}
+                    lineHeight={19}
+                    showPrintMargin={false}
+                    showGutter={false}
+                    highlightActiveLine={true}
+                    value={code}
+                    setOptions={{
+                      enableBasicAutocompletion: false,
+                      enableLiveAutocompletion: false,
+                      enableSnippets: false,
+                      showLineNumbers: true,
+                      tabSize: 2,
+                    }}
+                  />
                 </div>
               </div>
             </div>
