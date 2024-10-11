@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeProvider } from "./components/theme-provider";
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./layout/app-layout";
-import { LandingPage, SignInPage, SignUpPage, Dashboard } from "./pages";
+import { LandingPage, SignInPage, SignUpPage, Dashboard, SnippetFormPage } from "./pages";
 import { RouterProvider } from "react-router-dom";
 import { useEffect } from "react";
 import authServices from "./services/authServices";
@@ -38,6 +38,14 @@ function App() {
             </ProtectedRoute>
           ),
         },
+        {
+          path: "/add-snippet",
+          element: (
+            <ProtectedRoute>
+              <SnippetFormPage />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
   ]);
@@ -60,7 +68,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <RouterProvider router={appRouter} />
     </ThemeProvider>
   );
