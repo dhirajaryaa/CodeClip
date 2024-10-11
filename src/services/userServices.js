@@ -1,6 +1,5 @@
 import { db } from "@/firebase/firebase";
 import {
-  collection,
   deleteDoc,
   doc,
   getDoc,
