@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -41,32 +41,31 @@ function UserProfile() {
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Button
-                  onClick={() => dispatch(openProfileSettings())}
-                  className="w-full"
-                  size="xs"
-                  variant="ghost"
-                >
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </Button>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Button
-                  onClick={() => dispatch(signOut())}
-                  className="w-full"
-                  size="xs"
-                  variant="ghost"
-                >
-                  <LogOutIcon className="mr-2 h-4 w-4" />
-                  <span>Sign Out</span>
-                </Button>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel align="center">My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Button
+                onClick={() => dispatch(openProfileSettings())}
+                className="w-full"
+                size="xs"
+                variant="ghost"
+              >
+                <User className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Button
+                onClick={() => dispatch(signOut())}
+                className="w-full"
+                size="xs"
+                variant="ghost">
+                <LogOutIcon className="mr-2 h-4 w-4" />
+                <span>Sign Out</span>
+              </Button>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (

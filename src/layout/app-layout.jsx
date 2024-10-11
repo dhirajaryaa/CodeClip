@@ -1,16 +1,15 @@
-import { useTheme } from '@/components/theme-provider'
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import { Toaster } from 'sonner'
+import { useTheme } from "@/components/theme-provider";
+import { Outlet } from "react-router-dom";
+import { Toaster } from "sonner";
 
 function AppLayout() {
-  const {theme} = useTheme();
+  const { theme } = useTheme();
   return (
-    <main>
-      <Outlet/>
-      <Toaster theme={theme}/>
-    </main>
+    <>
+      <Outlet />
+      <Toaster theme={theme} />
+    </>
   )
 }
 
-export default AppLayout
+export default AppLayout;
