@@ -8,37 +8,40 @@ import {
   FolderCodeIcon,
   Tags,
 } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 function NavLinks() {
+  const { pathname } = useLocation();
+
   const navItems = [
     {
       name: "All Snippets",
       icon: <Grid2x2Icon className="h-5 w-5" />,
-      link: "",
+      link: "/dashboard",
       badge: 0,
     },
     {
       name: "My Snippets",
       icon: <FolderCodeIcon className="h-5 w-5" />,
-      link: "",
+      link: "/my-snippets",
       badge: 0,
     },
     {
       name: "Favorites",
       icon: <HeartIcon className="h-5 w-5" />,
-      link: "",
+      link: "/favorites",
       badge: 0,
     },
     {
       name: "Tags",
       icon: <Tags className="h-5 w-5" />,
-      link: "",
+      link: "/tags",
       badge: 0,
     },
     {
       name: "Trash",
       icon: <Trash2Icon className="h-5 w-5" />,
-      link: "",
+      link: "/trash",
       badge: 0,
     },
   ];
@@ -54,7 +57,9 @@ function NavLinks() {
         <Link
           key={index}
           to={link}
-          className="mx-[-0.65rem] hover:bg-muted duration-100 ease-in-out flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+          className={`mx-[-0.65rem] ${
+            pathname == link && "bg-muted"
+          } hover:bg-muted duration-100 ease-in-out flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground`}
         >
           {icon}
           {name}
@@ -65,7 +70,6 @@ function NavLinks() {
           )}
         </Link>
       ))}
-     
     </nav>
   );
 }
