@@ -1,5 +1,13 @@
 import { db } from "@/firebase/firebase";
-import { collection, doc, addDoc, updateDoc, deleteDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+  getDoc,
+} from "firebase/firestore";
 
 class SnippetServices {
   // Add snippet to the database
@@ -9,7 +17,7 @@ class SnippetServices {
 
       // Use addDoc to add a new document with auto-generated ID
       const res = await addDoc(collectionRef, { ...data });
-      
+
       return res; // Returns document reference
     } catch (error) {
       console.error("Error adding snippet to Database:", error);
@@ -25,7 +33,7 @@ class SnippetServices {
 
       // Use updateDoc to update specific fields
       await updateDoc(docRef, data);
-      
+
       return "Snippet updated successfully!";
     } catch (error) {
       console.error("Error updating snippet in Database:", error);
@@ -41,7 +49,7 @@ class SnippetServices {
 
       // Use deleteDoc to delete the document
       await deleteDoc(docRef);
-      
+
       return "Snippet removed successfully!";
     } catch (error) {
       console.error("Error removing snippet from Database:", error);
@@ -49,6 +57,27 @@ class SnippetServices {
     }
   };
 
+  // Get all snippets from the database
+  getSnippet = async (docId) => {
+    try {
+      // Use doc() to reference the specific document by ID
+      const docRef = doc(db, "snippets", docId);
+
+      // Use getDoc to retrieve data from the collection
+      const res = await getDoc(docRef);
+
+      if (res.exists()) {
+        return res.data(); // Return user data
+      } else {
+        throw new Error("User not found!");
+      }
+
+      // return { id: data.id, ...data.data() }; // Return array of snippet
+    } catch (error) {
+      console.error("Error retrieving snippet from Database:", error);
+      throw error;
+    }
+  };
   // Get all snippets from the database
   getSnippets = async () => {
     try {
