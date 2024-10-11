@@ -80,6 +80,37 @@ class AuthServices {
     }
   };
 
+  updateUserProfile = async (name) => {
+    try {
+      // Check if the current user exists
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        throw new Error("No authenticated user found.");
+      }
+  
+      const { email, photoURL, uid } = currentUser;
+  
+      // Ensure name is not undefined
+      if (!name) {
+        throw new Error("Name is required to update profile.");
+      }
+  
+      // Update Firestore user document
+      await userServices.updateUser(email, name, photoURL || "", uid);
+  
+      // Update Firebase Auth profile
+      await updateProfile(currentUser, {
+        displayName: name,
+      });
+  
+      return { ...currentUser, displayName: name };
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      throw error;
+    }
+  };
+  
+
   // Remove user (account deletion)
   removeUser = async () => {
     try {
