@@ -11,6 +11,15 @@ import { Plus } from "lucide-react";
 import { Type } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CopyIcon } from "lucide-react";
+import { Copy } from "lucide-react";
 
 function SnippetFormPage() {
   return (
@@ -68,8 +77,27 @@ function SnippetFormPage() {
                 <Label htmlFor="code" className="text-primary mt-2">
                   <Code2 />
                 </Label>
-                <div className="w-full min-h-[15rem] max-h-96 overflow-scroll rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background ">
-                  
+                <div className="w-full min-h-[15rem] max-h-96 overflow-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background ">
+                  <div className="flex items-center justify-between py-0 sm:py-1">
+                    <Select>
+                      <SelectTrigger className="w-[110px]">
+                        <SelectValue placeholder="Theme" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="light">Light</SelectItem>
+                        <SelectItem value="dark">Dark</SelectItem>
+                        <SelectItem value="system">System</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      type="button"
+                      className="focus:text-primary"
+                    >
+                      <Copy />
+                    </Button>
+                  </div>
                   code here
                 </div>
               </div>
