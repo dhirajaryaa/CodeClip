@@ -15,19 +15,21 @@ import {
   openProfileSettings,
 } from "@/redux/slices/uiSlice";
 import { useDispatch } from "react-redux";
-import { useRef } from "react";
 import { Loader } from "lucide-react";
 import { userProfileUpdate } from "@/redux/slices/authSlice";
+import { useState } from "react";
 
 const ProfileSettings = () => {
   const { isProfileSettingsOpen } = useSelector((state) => state.ui);
-  const { user,isLoading } = useSelector((state) => state.auth);
+  const { user, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const name = useRef(user?.name);
+  const [name,setName] = useState(user?.name)
 
   const updateProfile = (e) => {
-    e.preventDefault();
-    dispatch(userProfileUpdate(name));
+    
+    if (name) {
+      dispatch(userProfileUpdate(name));
+    }
   };
 
   return (
@@ -52,11 +54,11 @@ const ProfileSettings = () => {
           <div className="space-y-1">
             <Label htmlFor="name">Name</Label>
             <Input
-              ref={name}
               id="name"
               name="name"
               placeholder="sohit roy"
               defaultValue={user?.name}
+              onChange={(e)=>setName(e.target.value)}
             />
           </div>
           {/* <div className="space-y-1">
@@ -65,12 +67,12 @@ const ProfileSettings = () => {
             </div> */}
         </div>
         <DialogFooter>
-          <Button type="button" onClick={updateProfile}  disabled={isLoading}>
-          {isLoading ? (
-                  <Loader size={28} className="animate-spin" />
-                ) : (
-                  "Save Changes"
-                )}
+          <Button type="button" onClick={updateProfile} disabled={isLoading}>
+            {isLoading ? (
+              <Loader size={28} className="animate-spin" />
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

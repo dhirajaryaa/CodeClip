@@ -20,7 +20,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Header } from "@/components/custom";
-import { toast } from "sonner";
 
 export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -60,7 +59,7 @@ export function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground w-full">
       
-      {/* hearder add  */}
+      {/* header add  */}
       <Header />
       
       <main className="flex-1">
@@ -80,9 +79,12 @@ export function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Link to={"/dashboard"}>
+
+                <Button  className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Get Started
                 </Button>
+                </Link>
 
 
                 <Button variant="destructive">Learn More</Button>

@@ -22,7 +22,7 @@ export function SignInPage() {
   const formRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isLoading, isAuth } = useSelector((state) => state.auth);
+  const { isLoading, isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuth) {
