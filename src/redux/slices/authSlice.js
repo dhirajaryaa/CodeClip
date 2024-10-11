@@ -60,7 +60,9 @@ export const googleSignin = createAsyncThunk(
 );
 export const userProfileUpdate = createAsyncThunk(
   "auth/userProfileUpdate",
-  async ({ name }, { rejectWithValue }) => {
+  async (name , { rejectWithValue }) => {
+    console.log(name);
+    
     try {
       const user = await authServices.updateUserProfile(name);
       return transformData(user);
