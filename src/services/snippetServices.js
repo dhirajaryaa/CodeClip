@@ -7,6 +7,8 @@ import {
   deleteDoc,
   getDocs,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 class SnippetServices {
@@ -67,9 +69,9 @@ class SnippetServices {
       const res = await getDoc(docRef);
 
       if (res.exists()) {
-        return res.data(); // Return user data
+        return { id: res.id, ...res.data() }; // Return user data
       } else {
-        throw new Error("User not found!");
+        throw new Error("data not found!");
       }
 
       // return { id: data.id, ...data.data() }; // Return array of snippet
@@ -85,6 +87,29 @@ class SnippetServices {
 
       // Use getDocs to retrieve all documents from the collection
       const snapshot = await getDocs(collectionRef);
+
+      // Map the results to an array of snippet objects
+      const snippets = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      return snippets; // Return array of snippets
+    } catch (error) {
+      console.error("Error retrieving snippets from Database:", error);
+      throw error;
+    }
+  };
+
+  // Get specific user all snippets from the database
+  getUserSnippets = async (uid) => {
+    try {
+      const collectionRef = collection(db, "snippets");
+      // make a query for matching userId then give data 
+      const query = query(collectionRef,where("userId","==",uid));
+
+      // Use getDocs to retrieve all documents from the collection
+      const snapshot = await getDocs(query);
 
       // Map the results to an array of snippet objects
       const snippets = snapshot.docs.map((doc) => ({
