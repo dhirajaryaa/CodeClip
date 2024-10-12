@@ -4,12 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DashboardLayout } from "@/layout/dashboard-layout";
-import { Text } from "lucide-react";
-import { Tags } from "lucide-react";
-import { Code2 } from "lucide-react";
-import { Plus } from "lucide-react";
-import { Type } from "lucide-react";
-import { ArrowLeft } from "lucide-react";
+import { Text, Tags, Code2, Plus, Type, ArrowLeft, Copy } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Select,
@@ -18,21 +13,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Copy } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "@/components/theme-provider";
 
-import AceEditor from "react-ace";
-
-// import "ace-builds/src-noconflict/mode-java";
-// import "ace-builds/src-noconflict/theme-github";
-// import "ace-builds/src-noconflict/ext-language_tools";
+const language = [
+  { mode: "javascript", name: "JavaScript" },
+  { mode: "java", name: "Java" },
+  { mode: "python", name: "Python" },
+  { mode: "xml", name: "XML" },
+  { mode: "ruby", name: "Ruby" },
+  { mode: "sass", name: "Sass" },
+  { mode: "markdown", name: "Markdown" },
+  { mode: "mysql", name: "MySQL" },
+  { mode: "json", name: "JSON" },
+  { mode: "html", name: "HTML" },
+  { mode: "golang", name: "Go" },
+  { mode: "csharp", name: "C#" },
+  { mode: "coffee", name: "CoffeeScript" },
+  { mode: "css", name: "CSS" },
+];
 
 function SnippetFormPage() {
-  const [code, setCode] = useState(`
-function onLoad(editor) {
-  console.log("i've loaded");
-}
-`);
+  const { theme } = useTheme();
+  const [code, setCode] = useState(``);
+  const [selectedLanguage, setSelectedLanguage] = useState("javascript"); // Default language
+
+  // Handle code change
+  const onChangeCode = (event) => {
+    setCode(event.target.value);
+  };
+
   return (
     <DashboardLayout>
       <main className="p-3 bg-muted w-full h-full">
@@ -48,8 +58,8 @@ function onLoad(editor) {
         </div>
         <section className="p-4 mt-5">
           <form>
-            <div className="flex flex-col w-full max-w-4xl mx-auto gap-6 bg-muted rounded-xl">
-              {/* title  */}
+            <div className="flex flex-col w-full max-w-5xl mx-auto gap-6 bg-muted rounded-xl">
+              {/* Title */}
               <div className="flex w-full items-center gap-2 relative">
                 <Label htmlFor="title" className="text-primary">
                   <Type />
@@ -61,7 +71,7 @@ function onLoad(editor) {
                 />
                 <span className="text-red-600 absolute -right-1 -top-3">*</span>
               </div>
-              {/* description  */}
+              {/* Description */}
               <div className="flex w-full items-center gap-2">
                 <Label htmlFor="description" className="text-primary">
                   <Text />
@@ -73,31 +83,41 @@ function onLoad(editor) {
                   placeholder="Type your Description here...."
                 />
               </div>
-              {/* tags  */}
+              {/* Tags */}
               <div className="flex w-full items-center gap-3">
-                <Label htmlFor="description" className="text-primary">
+                <Label htmlFor="tags" className="text-primary">
                   <Tags />
                 </Label>
                 <Badge className="rounded-sm cursor-pointer">
                   <Plus size={16} />
-                  <span className=" ml-1">No Tags</span>
+                  <span className="ml-1">No Tags</span>
                 </Badge>
               </div>
-              {/* code  */}
+
+              {/* Code Editor */}
               <div className="flex w-full items-stretch gap-2">
                 <Label htmlFor="code" className="text-primary mt-2">
                   <Code2 />
                 </Label>
-                <div className="w-full min-h-[15rem] max-h-96 overflow-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background flex flex-col ">
+                <div className="w-full min-h-[15rem] max-h-96 overflow-auto rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background flex flex-col">
                   <div className="flex items-center justify-between mb-2">
-                    <Select>
+                    <Select
+                      value={selectedLanguage}
+                      onValueChange={setSelectedLanguage}
+                    >
                       <SelectTrigger className="w-[110px]">
-                        <SelectValue placeholder="Theme" />
+                        <SelectValue placeholder="Language" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="light">Light</SelectItem>
-                        <SelectItem value="dark">Dark</SelectItem>
-                        <SelectItem value="system">System</SelectItem>
+                        {language.map((lang, index) => (
+                          <SelectItem
+                            key={index}
+                            value={lang.mode}
+                            className="capitalize"
+                          >
+                            {lang.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Button
@@ -109,28 +129,18 @@ function onLoad(editor) {
                       <Copy />
                     </Button>
                   </div>
-                  {/* code here */}
-
-                  <AceEditor
-                    width="100%"
-                    height="100%"
-                    placeholder="Placeholder Text"
-                    mode="javascript"
-                    theme="monokai"
-                    name="blah2"
-                    fontSize={"1em"}
-                    lineHeight={19}
-                    showPrintMargin={false}
-                    showGutter={false}
-                    highlightActiveLine={true}
+                  {/* Textarea for Code */}
+                  <Textarea
                     value={code}
-                    setOptions={{
-                      enableBasicAutocompletion: false,
-                      enableLiveAutocompletion: false,
-                      enableSnippets: false,
-                      showLineNumbers: true,
-                      tabSize: 2,
-                    }}
+                    onChange={onChangeCode}
+                    placeholder="Enter your code snippet here"
+                    className={`${
+                      theme === "dark"
+                        ? "bg-transparent text-secondary-foreground"
+                        : ""
+                    } border-2 rounded-md`}
+                    style={{ minHeight: '15rem', maxHeight: '400px' }} // Adjust as needed
+                    rows={10} // Set number of visible rows
                   />
                 </div>
               </div>
