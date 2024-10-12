@@ -15,28 +15,42 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import { useTheme } from "@/components/theme-provider";
-
-const language = [
-  { mode: "javascript", name: "JavaScript" },
-  { mode: "java", name: "Java" },
-  { mode: "python", name: "Python" },
-  { mode: "xml", name: "XML" },
-  { mode: "ruby", name: "Ruby" },
-  { mode: "sass", name: "Sass" },
-  { mode: "markdown", name: "Markdown" },
-  { mode: "mysql", name: "MySQL" },
-  { mode: "json", name: "JSON" },
-  { mode: "html", name: "HTML" },
-  { mode: "golang", name: "Go" },
-  { mode: "csharp", name: "C#" },
-  { mode: "coffee", name: "CoffeeScript" },
-  { mode: "css", name: "CSS" },
-];
+import { Loader } from "lucide-react";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SnippetFormPage() {
+  const language = [
+    { mode: "javascript", name: "JavaScript" },
+    { mode: "java", name: "Java" },
+    { mode: "python", name: "Python" },
+    { mode: "xml", name: "XML" },
+    { mode: "ruby", name: "Ruby" },
+    { mode: "sass", name: "Sass" },
+    { mode: "markdown", name: "Markdown" },
+    { mode: "mysql", name: "MySQL" },
+    { mode: "json", name: "JSON" },
+    { mode: "html", name: "HTML" },
+    { mode: "golang", name: "Go" },
+    { mode: "csharp", name: "C#" },
+    { mode: "coffee", name: "CoffeeScript" },
+    { mode: "css", name: "CSS" },
+  ];
+  const [loading, setLoading] = useState(false);
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [code, setCode] = useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState("javascript"); // Default language
+  const formRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = formRef.current;
+    const title = form["title"].value;
+    const desc = form["description"].value;
+
+    console.log(title, desc, selectedLanguage, code);
+  };
 
   // Handle code change
   const onChangeCode = (event) => {
@@ -57,7 +71,7 @@ function SnippetFormPage() {
           </h1>
         </div>
         <section className="p-4 mt-5">
-          <form>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <div className="flex flex-col w-full max-w-5xl mx-auto gap-6 bg-muted rounded-xl">
               {/* Title */}
               <div className="flex w-full items-center gap-2 relative">
@@ -67,6 +81,7 @@ function SnippetFormPage() {
                 <Input
                   type="text"
                   id="title"
+                  name="title"
                   placeholder="Type your Title here..."
                 />
                 <span className="text-red-600 absolute -right-1 -top-3">*</span>
@@ -139,11 +154,30 @@ function SnippetFormPage() {
                         ? "bg-transparent text-secondary-foreground"
                         : ""
                     } border-2 rounded-md`}
-                    style={{ minHeight: '15rem', maxHeight: '400px' }} // Adjust as needed
+                    style={{ minHeight: "15rem", maxHeight: "400px" }} // Adjust as needed
                     rows={10} // Set number of visible rows
                   />
                 </div>
               </div>
+            </div>
+            <div className="mt-8 flex w-full justify-center gap-6">
+              <Button
+                type="reset"
+                variant="outline"
+                onClick={() => navigate("/dashboard")}
+              >
+                Cancel
+              </Button>
+              <Button type="submit">
+                {loading ? (
+                  <Loader className="animate-spin w-8" />
+                ) : (
+                  <>
+                    <Plus size={15} />
+                    <span>Add Snippet</span>
+                  </>
+                )}
+              </Button>
             </div>
           </form>
         </section>
