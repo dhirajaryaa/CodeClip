@@ -18,8 +18,12 @@ import { useTheme } from "@/components/theme-provider";
 import { Loader } from "lucide-react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addSnippet } from "@/redux/slices/snippetSlice";
+import { useSelector } from "react-redux";
 
 function SnippetFormPage() {
+  const {user} = useSelector(state=>state.auth)
   const language = [
     { mode: "javascript", name: "JavaScript" },
     { mode: "java", name: "Java" },
@@ -42,14 +46,22 @@ function SnippetFormPage() {
   const [code, setCode] = useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState("javascript"); // Default language
   const formRef = useRef();
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = formRef.current;
     const title = form["title"].value;
     const desc = form["description"].value;
+    const tags = ["javascript","react","html"];
+    const viability = false;
+    const uid = user.uid
 
-    console.log(title, desc, selectedLanguage, code);
+    const res =  dispatch(addSnippet({title,desc,selectedLanguage,code,tags,viability,uid}))
+    console.log(res);
+    
+
+    // console.log(title, desc, selectedLanguage, code);
   };
 
   // Handle code change

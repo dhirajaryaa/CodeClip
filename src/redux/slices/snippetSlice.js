@@ -11,7 +11,7 @@ const initialState = {
 };
 
 // add new snippet to db
-const addSnippet = createAsyncThunk("snippet/addSnippet", async ({title,desc,selectedLanguage,code,tags,viability},{rejectWithValue}) => {
+export const addSnippet = createAsyncThunk("snippet/addSnippet", async ({title,desc,selectedLanguage,code,tags,viability,uid},{rejectWithValue}) => {
   try {
     const res = await snippetServices.addSnippet({
       title,
@@ -32,7 +32,7 @@ const addSnippet = createAsyncThunk("snippet/addSnippet", async ({title,desc,sel
 })
 
 // get single snippet by id
-const getSnippet = createAsyncThunk("snippet/getSnippet", async ({docId}, { rejectWithValue }) => {
+export const getSnippet = createAsyncThunk("snippet/getSnippet", async ({docId}, { rejectWithValue }) => {
   try {
     const res = await snippetServices.getSnippet(docId);
     return res.data;
@@ -42,7 +42,7 @@ const getSnippet = createAsyncThunk("snippet/getSnippet", async ({docId}, { reje
 });
 
 // get all snippets form db 
-const getSnippets = createAsyncThunk("snippet/getSnippets", async (_, { rejectWithValue }) => {
+export const getSnippets = createAsyncThunk("snippet/getSnippets", async (_, { rejectWithValue }) => {
   try {
     const res = await snippetServices.getSnippets();
     return res.data;
@@ -51,7 +51,7 @@ const getSnippets = createAsyncThunk("snippet/getSnippets", async (_, { rejectWi
   }
 })
 
-const getUserSnippets = createAsyncThunk("snippet/getUserSnippets", async ({uid}, { rejectWithValue }) => {
+export const getUserSnippets = createAsyncThunk("snippet/getUserSnippets", async ({uid}, { rejectWithValue }) => {
 try {
   const res = await snippetServices.getUserSnippets(uid);
   return res.data;
@@ -61,7 +61,7 @@ try {
 })
 
 // snippet update 
-const updateSnippet = createAsyncThunk("snippet/updateSnippet", async ({docId, data}, { rejectWithValue }) => {
+export const updateSnippet = createAsyncThunk("snippet/updateSnippet", async ({docId, data}, { rejectWithValue }) => {
   try {
     const res = await snippetServices.updateSnippet(docId, data);
     return res.data;
@@ -71,7 +71,7 @@ const updateSnippet = createAsyncThunk("snippet/updateSnippet", async ({docId, d
 })
 
 // remove snippet 
-const removeSnippet = createAsyncThunk("snippet/removeSnippet", async ({docId}, { rejectWithValue }) => {
+export const removeSnippet = createAsyncThunk("snippet/removeSnippet", async ({docId}, { rejectWithValue }) => {
   try {
     const res = await snippetServices.removeSnippet(docId);
     return res.data;
@@ -81,7 +81,7 @@ const removeSnippet = createAsyncThunk("snippet/removeSnippet", async ({docId}, 
 })
 
 const snippetSlice  = createSlice({
-  name:snippet,
+  name:"snippet",
   initialState,
   reducers:{},
   extraReducers: (builder) => {

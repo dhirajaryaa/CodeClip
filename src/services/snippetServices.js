@@ -14,7 +14,7 @@ import {
 class SnippetServices {
   // Add snippet to the database
   addSnippet = async (data) => {
-    try {
+    try {      
       const collectionRef = collection(db, "snippets");
 
       // Use addDoc to add a new document with auto-generated ID
